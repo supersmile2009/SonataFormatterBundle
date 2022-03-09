@@ -13,16 +13,14 @@ declare(strict_types=1);
 
 namespace Sonata\FormatterBundle\Controller;
 
-use Sonata\MediaBundle\Controller\MediaAdminController;
+use Sonata\AdminBundle\Controller\CRUDController;
 use Sonata\MediaBundle\Provider\MediaProviderInterface;
-use Symfony\Component\Form\FormRenderer;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-final class CkeditorAdminController extends MediaAdminController
+final class CkeditorAdminController extends CRUDController
 {
     /**
      * @throws AccessDeniedException
@@ -152,13 +150,5 @@ final class CkeditorAdminController extends MediaAdminController
         if (!isset($bundles['SonataMediaBundle'])) {
             throw new \RuntimeException('You cannot use this feature because you have to use SonataMediaBundle');
         }
-    }
-
-    /**
-     * Sets the admin form theme to form view. Used for compatibility between Symfony versions.
-     */
-    private function setFormTheme(FormView $formView, array $theme): void
-    {
-        $this->get('twig')->getRuntime(FormRenderer::class)->setTheme($formView, $theme);
     }
 }
